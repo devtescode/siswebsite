@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .kaffy {
+            border: 2px solid;
+            width: 100px;
+            border-radius: 200px;
+            height: 52px;
+            font-family: serif;
+            background-image: linear-gradient(to left, rgba(30, 30, 238, 0.897), rgb(218, 53, 53));
+            padding-left: 2px;
+            border-color: blue;
+            box-shadow: blue 0px 2px 5px 5px blue;
+        }
+
+        @media (max-width:688px) {
+            .kaffy {
+                
+                width: 80px;
+                height: 42px;
+            }
+            .d-flex{
+                display: block !important;
+            }
+        }
+    </style>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 col-sm-12 mx-auto shadow">
+                <div class="kaffy mt-3">
+                    <h1 style="text-align: center;">Kaffy</h1>
+                </div>
+                <div class="d-flex p-5">
+                    <input type="text" id="user" class="form-control my-2" placeholder="Username">
+                    <input type="password" id="pass" maxlength="11" class="form-control my-2" placeholder="Password">
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-success my-2" id="loadsign" onclick="sign()">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let everyclient = []
+        if (localStorage.storageclient) {
+            everyclient = JSON.parse(localStorage.getItem("storageclient"))
+        }
+        const sign = () => {
+            if (pass.value.length == 11) {
+                setTimeout(() => {
+                    loadsign.innerHTML = "Incorrect"
+                }, 2000);
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: 'Password Should Be Less Than Eleven Digit',
+                })
+            }
+            else if (user.value == "" || pass.value == "") {
+                loadsign.innerHTML = "loading>>>"
+                setTimeout(() => {
+                    loadsign.innerHTML = "Incorrect"
+                }, 2000);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Fill In your Input',
+                })
+            }
+
+            else {
+                let onebyone = {
+                    peruser: user.value,
+                    perpassword: pass.value,
+                }
+                everyclient.push(onebyone)
+                console.log(everyclient);
+                localStorage.setItem('storageclient', JSON.stringify(everyclient))
+                loadsign.innerHTML = "loading>>>"
+                setTimeout(() => {
+                    loadsign.innerHTML = "Correct"
+                }, 4000);
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Success',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                window.location.href = "signin.html"
+            }
+            user.value = "" 
+             pass.value = ""
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>
