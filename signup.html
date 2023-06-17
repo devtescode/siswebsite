@@ -12,7 +12,6 @@
         crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
-
 <body>
     <style>
         .kaffy {
@@ -51,6 +50,9 @@
                 <div class="text-center">
                     <button class="btn btn-success my-2" id="loadsign" onclick="sign()">Sign Up</button>
                 </div>
+                <div class="text-end">
+                    <a href="signin.html" style="text-decoration: none;color: #000;">Already Have An Account</a>
+                </div>
             </div>
         </div>
     </div>
@@ -71,6 +73,13 @@
                     text: 'Password Should Be Less Than Eleven Digit',
                 })
             }
+            else if (user.value == pass.value){
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: 'You are not allow to use the same username for the password',
+                })
+            }
             else if (user.value == "" || pass.value == "") {
                 loadsign.innerHTML = "loading>>>"
                 setTimeout(() => {
@@ -87,6 +96,8 @@
                 let onebyone = {
                     peruser: user.value,
                     perpassword: pass.value,
+                    cart:[],
+                    eachCart:""
                 }
                 everyclient.push(onebyone)
                 console.log(everyclient);

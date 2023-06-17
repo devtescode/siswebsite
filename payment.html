@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <style>
+        /* .card{
+            overflow-y: scroll;
+            overflow-x: scroll;
+            display: flex;
+        } */
+        #displaying {
+            /* position: absolute; */
+            /* position: fixed; */
+            width: 0%;
+            height: 0%;
+            top: 0%;
+            right: 0%;
+            /* display: none; */
+            visibility: hidden;
+            animation-duration: 500ms;
+            animation-name: mydispo;
+            animation-iteration-count: 1;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes mydispo {
+            100% {
+                width: 100%;
+                visibility: visible;
+            }
+        }
+
+        .mylabal {
+            text-decoration: underline;
+            padding: 2px;
+            margin-left: 5px;
+        }
+
+        .no {
+            position: absolute;
+        }
+
+        .atm {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        .state {
+            position: absolute;
+            left: 50%;
+            top: 40%;
+        }
+
+        .card {
+            border: 2px solid;
+        }
+        .paym{
+            margin: 0px;
+            color: transparent;
+            width: 155px;
+            /* border: 1px solid; */
+            animation-duration: 2s;
+            animation-name: mypaym;
+            animation-iteration-count: 1;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+            transition: all 0.3s ease;
+        }
+        @keyframes mypaym {
+            100% {
+                color: black;
+                translate: 400%;
+            }
+        }
+        #displayto {
+            z-index: 10;
+            padding: 15px;
+            text-align: center;
+            position: absolute;
+            position: fixed;
+            width: 0%;
+            height: 0%;
+            top: 50%;
+            left: 50%;
+            display: none;
+            visibility: hidden;
+            transform: translate(-50%, -50%);
+            background-color: transparent;
+            animation-duration: 200ms;
+            animation-name: tion;
+            animation-iteration-count: 1;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+            transition: all 0.3s ease;
+            /* background: transparent; */
+        }
+
+        @keyframes tion {
+            100% {
+                background-color: aliceblue;
+                visibility: visible;
+                width: 50%;
+                height: 50%;
+            }
+        }
+
+        .conatm {
+            border-radius: 20px;
+            z-index: 10;
+            padding: 15px;
+            position: absolute;
+            position: fixed;
+            width: 0%;
+            height: 0%;
+            top: 0%;
+            left: 0%;
+            visibility: hidden;
+            transform: translate(-50%, -50%);
+            background-color: transparent;
+            animation-duration: 200ms;
+            animation-name: realatm;
+            animation-iteration-count: 1;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes realatm {
+            100% {
+                background-color: white;
+                visibility: visible;
+                width: 50%;
+                height: auto;
+                top: 50%;
+                left: 50%;
+            }
+        }
+
+        @media (max-width:688px) {
+            .ani {
+                display: block !important;
+            }
+
+            #displayto {
+                width: 85% !important;
+            }
+
+            .conatm {
+                width: 95% !important;
+            }
+            @keyframes mypaym {
+            100% {
+                color: black;
+                translate: 90%;
+            }
+           }
+        }
+    </style>
+    <button class="btn btn-success" onclick="getback()">Back</button>
+    <div class="paym">Make Payment</div  >
+    <!-- <span class="pag">Page</span> -->
+    <div id="dispatm"></div>
+    <div id="displayto"></div>
+    <div id="displaying"></div>
+    <script>
+        let getUser = JSON.parse(localStorage.getItem('storageclient'))
+        let index = localStorage.getItem('index')
+        let savingchart = getUser[index].eachCart
+
+        const display = () => {
+            displaying.innerHTML = ""
+            for (let index = 0; index < savingchart.length; index++) {
+                displaying.innerHTML += `
+                <div class="card shadow m-4 col-sm-12 col-md-6 mx-auto">
+                    <div class="w-50 okay">
+                        <div class="img">${savingchart[index].cakeimg}</div>
+                        </div>
+                        <div class="no text-end">${savingchart[index].cakeno}
+                            </div>
+                            <button onclick="paywith()" class="atm btn btn-success">ATM</button>
+                            <button onclick="mystate(${index})" class="state btn btn-success">State</button>
+                            
+                </div>
+                `
+            }
+        }
+        display()
+
+        const paywith = () => {
+            dispatm.innerHTML = `
+            <div class="conatm w-50 shadow p-2">
+                <label for="" class="mylabal">ATM</label>
+                    <input type="text" class="form-control" placeholder="0000-0000-0000-0000">
+                    <div class="d-flex my-2">
+                    <input type="text" class="form-control" placeholder="11/24">
+                    <input type="text" class="form-control" placeholder="123">
+                    </div>
+                    <hr>
+                   <h3 class="text-center">OR</h3>
+                   <hr>
+                   pay into account directly and send a screenshot for a payment prove
+                    <div class="text-center">
+                    <button onclick="triggeratm()" class="btn btn-success mt-3">Submit</button>
+                    </div> 
+            </div>
+            `
+        }
+
+
+     const triggeratm=()=>{
+        Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'The owner account will be using for now.',
+                })
+     }   
+
+    const mystate = (putback) => {
+        displayto.style.display = "block"
+        displayto.innerHTML = `
+    <div class="ani d-flex mt-5">
+        <div>
+            <div class="w-50">${savingchart[putback].cakeimg}</div>
+        </div>
+        <div class="briup mt-3">
+            <select class="shadow w-100" name="" id="selectamall">
+                <option value="">Osun-state</option>
+                <option value="">Ogun-state</option>
+                <option value="">Oyo-state</option>
+                <option value="">Lagos-state</option>
+                <option value="">Abuja-state</option>
+                <option value="">ilorin-state</option>
+                <option value="">Ibadan-state</option>
+            </select>
+            <input type="datetime-local" id="fillinput" class="form-control">
+            </div>
+            </div> 
+            <button class="btn btn-success mx-auto mt-5" onclick="clickit()">Click On</button>
+            <div class="pri">
+            Quantity Added is ${savingchart[putback].quantity}<br>
+             The Cake Price is ${savingchart[putback].cakepricing}
+            </div>
+        `
+        }
+        const clickit = () => {
+            if (fillinput.value == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please Set The Time And Date To Deliver',
+                })
+            }
+            else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Thank You',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                displayto.style.display = "none"
+                // displayto.innerHTML = ""
+
+            }
+        }
+        const getback=()=>{
+            window.location.href = "savingproduct.html"
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+
+</html>

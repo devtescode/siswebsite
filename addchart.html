@@ -61,56 +61,68 @@
         let addthing = [
             {
                 cakenum: "No 1",
-                myprice: 40000,
+                myprice: 1000,
                 cakeimgs: `<img class="w-75" src="./caro1.jpg" alt="">`,
+                qantity:Number()
             },
             {
-                cakenum: "No 1",
-                myprice: 40000,
+                cakenum: "No 2",
+                myprice: 22000,
                 cakeimgs: `<img class="w-75" src="./caro1.jpg" alt="">`,
+                qantity:Number()
             },
             {
-                cakenum: "No 1",
-                myprice: 40000,
+                cakenum: "No 3",
+                myprice: 23000,
                 cakeimgs: `<img class="w-75" src="./caro1.jpg" alt="">`,
+                qantity:Number()
             },
             {
-                cakenum: "No 1",
-                myprice: 40000,
+                cakenum: "No 4",
+                myprice: 24000,
                 cakeimgs: `<img class="w-75" src="./caro1.jpg" alt="">`,
+                qantity:Number()
             },
             {
-                cakenum: "No 1",
-                myprice: 40000,
+                cakenum: "No 5",
+                myprice: 25000,
                 cakeimgs: `<img class="w-75" src="./caro1.jpg" alt="">`,
+                qantity:Number()
             },
             {
-                cakenum: "No 1",
-                myprice: 40000,
+                cakenum: "No 6",
+                myprice: 26000,
                 cakeimgs: `<img class="w-75" src="./caro1.jpg" alt="">`,
+                qantity:Number()
             },
             {
-                cakenum: "No 1",
-                myprice: 40000,
+                cakenum: "No 7",
+                myprice: 27000,
                 cakeimgs: `<img class="w-75" src="./caro1.jpg" alt="">`,
+                qantity:Number()
             },
             {
-                cakenum: "No 1",
-                myprice: 40000,
+                cakenum: "No 8",
+                myprice: 28000,
                 cakeimgs: `<img class="w-75" src="./caro1.jpg" alt="">`,
+                qantity:Number()
+            },
+            {
+                cakenum: "No 9",
+                myprice: 29000,
+                cakeimgs: `<img class="w-75" src="./caro1.jpg" alt="">`,
+                qantity:Number()
             },
         ]
         for (let index = 0; index < addthing.length; index++) {
             disp.innerHTML += `
-
             <div class="putitleft card text-center shadow" style="width: 19rem;">
                 <div class="text-center">
                     ${addthing[index].cakeimgs}
                     </div>
                          <div class="card-body">
                            <h5 class="card-title">Cake</h5>
-                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                           Cake No- ${addthing[index].cakenum}<br>
+                            ${addthing[index].cakenum}<br>
                          Price-  ${addthing[index].myprice}<br>
                          <button class="btn btn-primary" onclick="linktocheck(${index})">Add To Chart</button>
                          </div>
@@ -120,7 +132,9 @@
         }
 
         
-        let savingchart = []
+        // let savingchart = []
+        let getUser=JSON.parse(localStorage.getItem ('storageclient'))
+        let index=localStorage.getItem('index')
         if(localStorage.setallgoods){
           let storeall = JSON.parse(localStorage.getItem("setallgoods"))
           savingchart = storeall
@@ -129,11 +143,12 @@
             var cakeproduct = {
                 mycakeno:addthing[getheindex].cakenum,
                 mycakeprice:addthing[getheindex].myprice,
-                mycakeimgs:addthing[getheindex].cakeimgs
+                mycakeimgs:addthing[getheindex].cakeimgs,
+                mycakeQuant:addthing[getheindex].qantity
             }
-            savingchart.push(cakeproduct)
-            console.log(savingchart);
-            localStorage.setItem('setallgoods', JSON.stringify(savingchart))
+            getUser[index].cart.push(cakeproduct)
+            console.log(getUser[index]);
+            localStorage.setItem('storageclient', JSON.stringify(getUser))
             localStorage.setItem('goods', getheindex)
             window.location.href = "savingproduct.html"
         }

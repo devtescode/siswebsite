@@ -22,7 +22,7 @@
         </div>
     </div>
     <div id="disp"></div>
-    <div id="display"></div>
+    <div id="displayto" class="container border border-1 shadow"></div>
 
     <style>
         .takeitleft {
@@ -43,142 +43,29 @@
             bottom: 0;
             text-align: center;
         }
+        .drag{
+            margin-top: 12px;
+        }
         #result{
             margin-top: 12px;
         }
         #number {
             position: absolute;
         }
-        .briup{
-           border: 2px solid;
+        .pri{
+            position: absolute;
+            bottom: 0px;
         }
         #selectamall{
             background-color: rgba(0, 0, 0, 0.315);
         }
-        .ani {
-            padding: 15px;
-            text-align: center;
-            animation-duration: 1s;
-            animation-name: tion;
-            animation-iteration-count: 1;
-            animation-timing-function: linear;
-            animation-fill-mode: forwards;
-            margin-top: -80px;
-        }
-        @keyframes tion {
-            100% {
-                margin-top: -10px;
-            }
-        }
     </style>
 
-    <script>
-        let savingchart = JSON.parse(localStorage.getItem("setallgoods"))
-        for (let index = 0; index < savingchart.length; index++) {
-            disp.innerHTML = `
-            <div class="container row mx-auto mt-5">
-               <div class="card col-sm-12 col-md-6 p-5 shadow">
-                  <div class="text-center"> ${savingchart[index].mycakeimgs}</div>
-
-               </div>
-       
-            <div class="card col-sm-12 col-md-6">
-                <div class="">
-                    <div class="text-end">
-                      <button class="btn btn-success" onclick="triger()">State</button>
-                      </div>
-                   ${savingchart[index].mycakeno}<br>
-                   Price- ${savingchart[index].mycakeprice}<br>
-                   </div>
-                  <div class="doublepro">
-                    <button class="btn btn-success" id="increaseBtn"><i class="ri-add-circle-fill"></i></button>
-                    <p id="result">0</p>
-                    <button class="btn btn-danger" id="decreaseBtn"><i class="ri-subtract-line"></i></button>
-                  </div>
-                  <div class="delectbTn mt-5">
-                    <button onclick="delct(${index})" class="btn btn-danger">Delect</button>
-                 </div>
-            </div>             
-            
-                </div>
-                    `
-        }
-        const triger = () =>{
-            display.innerHTML = `
-            <div class="ani">
-                <div class="briup col-md-2 col-sm-6 shadow mx-auto">
-            <select class="shadow w-100" name="" id="selectamall">
-                <option value="">Osun-state</option>
-                <option value="">Ogun-state</option>
-                <option value="">Oyo-state</option>
-                <option value="">Lagos-state</option>
-                <option value="">Abuja-state</option>
-                <option value="">ilorin-state</option>
-                <option value="">Ibadan-state</option>
-            </select>
-              <input type="datetime-local" id="fillinput" class="form-control">
-              <button class="btn btn-success" onclick="clickit()">Click On</button>
-            </div>
-            </div>
-            `
-        }
-        const mybackBtn = () => {
-            window.location.href = "addchart.html"
-        }
-
-        let number = 0; // initial value
-        const increase = () => {
-            number++;
-            document.getElementById("result").textContent = + number;
-        }
-
-        const decrease = () => {
-            if (number === 0) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'It Has Reach The Limit 0',
-                })
-            }
-            else {
-                number--;
-                document.getElementById("result").textContent = + number;
-            }
-            
-        }
-        document.getElementById("increaseBtn").addEventListener("click", increase);
-        document.getElementById("decreaseBtn").addEventListener("click", decrease);
 
 
-        const clickit=()=>{
-            if (fillinput.value == ""){
-                Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Please Set The Time And Date To Deliver',
-            })
-            }
-            else{
-                Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Thank You',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                display.innerHTML = ""
-            }
-        }
-
-        // const delct=(debtn)=>{
-        //     alert("F")
-        //     savingchart.splice(debtn, 1)
-        //     localStorage.setItem('storageclient', JSON.stringify(savingchart))
-            
-        // }
-    </script>
+    <script src="./savingproduct.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- <input type="datetime-local"> -->
-</body>
+
+   </body>
 
 </html>
